@@ -17,8 +17,8 @@
     height : 10vh;
     display : flex;
     justify-content: flex-end;
-    padding : 1%;
-
+    margin-right : 1%;
+    padding-top : 1%;
     overflow: hidden;
 }
 
@@ -83,19 +83,19 @@
 .navbar-content{
     display : flex;
     flex-direction: row;
+    align-items: center;
     height: 4vh;
     width : auto;
     gap : 1.2em;
-    padding : .5em;
-    padding-left : .7em;
+    padding : .5em 1em;
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(100px);
 
     color : white;
     position: relative;
-    left : .2em;
-
-    animation : nav-in 300ms ease-in;
+    left : 100%;
+    margin-right : 1em;
+    border-radius : 5px;
 }
 
 @keyframes nav-in {
@@ -103,6 +103,37 @@
         left : 100%;
     }
     100%{
-        left :.2em;
+        left : 0;
     }
 }
+
+@keyframes nav-out {
+    0%{
+        left : 0%;
+    }
+    100%{
+        left : 100%;
+    }
+}
+
+.navbar-content > div{
+    display: inline-block;
+    position: relative;
+    color: white;
+}
+.navbar-content > div:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+.navbar-content > div:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }

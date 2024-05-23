@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+:root {
+    --primary-light: rgb(245, 245, 245);
+    --primary-light-glass: rgba(245, 245, 245, 0.4);
+    --primary-dark: rgb(18, 19, 20);
+    --primary-dark-glass: rgb(18, 19, 20, 0.4);
+
+    --secondary-light: rgb(230, 230, 230);
+    --secondary-light-glas: rgb(230, 230, 230, 0.4);
+    --secondary-dark: rgb(28, 29, 30);
+    --secondary-dark-glass: rgb(28, 29, 30, 0.4);
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -53,8 +65,8 @@
 
     position: relative;
 
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(100px);
+    background-color: var(--primary-dark-glass);
+    backdrop-filter: blur(5px);
     border-radius: 5px;
 
     padding: 0.8em;
@@ -71,7 +83,7 @@
 .menu-stick {
     width: 90%;
     height: calc(100% / 7);
-    background-color: white;
+    background-color: var(--primary-light);
     border-radius: 2px;
 }
 
@@ -109,10 +121,9 @@
     width: auto;
     gap: 1.2em;
     padding: 0.75em 1.5em;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(100px);
-
-    color: white;
+    background-color: var(--primary-dark-glass);
+    backdrop-filter: blur(5px);
+    color: var(--primary-light);
     position: relative;
     left: 100%;
     margin-right: 1em;
@@ -140,7 +151,7 @@
 .navbar-content > div {
     display: inline-block;
     position: relative;
-    color: white;
+    color: var(--primary-light);
     cursor: pointer;
 }
 .navbar-content > div:after {
@@ -148,11 +159,11 @@
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height: 2.5px;
-    bottom: 0;
+    height: 2px;
     border-radius: 100px;
     left: 0;
-    background-color: white;
+    bottom: 0;
+    background-color: var(--primary-light);
     transform-origin: bottom right;
     transition: transform 150ms ease-in-out;
 }
@@ -176,12 +187,11 @@
 
 .slogan-container {
     width: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
     margin-bottom: 2em;
+    color: var(--primary-light)
 }
 
 .slogan-line-1 {
@@ -208,18 +218,46 @@
     flex-direction: column;
     justify-content: center;
     gap: 0.5em;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--primary-light-glass);
+    backdrop-filter: blur(5px);
     border-radius: 4px;
     padding: 1em;
 }
 
 .text-field label {
     font-size: 1em;
+    font-weight: 500;
+    color: var(--primary-dark);
 }
 
 .text-field input {
     border: none;
     outline: none;
     background-color: transparent;
+    color: var(--secondary-dark);
     font-size: 1.5em;
 }
+
+.text-field input::placeholder {
+    color: var(--primary-dark-glass);
+    font-weight: 500;
+}
+
+.submit-button {
+    width: 7em;
+    background: linear-gradient(to top right, var(--primary-dark-glass), var(--secondary-dark-glass)), rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border-radius: 4px;
+    border: none;
+}
+
+.submit-button:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 

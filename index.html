@@ -10,7 +10,7 @@
 
     <body>
         <div class="mobile-warning">
-            <h3>Cannot be viewed on mobile devices.</h3>                
+            <h3>Cannot be viewed on mobile devices.</h3>
             <h3>Please use a desktop or laptop.</h3>
         </div>
 
@@ -32,19 +32,26 @@
 
             <div class="main-container">
                 <div class="slogan-container">
-                    <div class="slogan">
-                        <h1>Ready to take off?</h1>
-                    </div>
+                    <p class="slogan-line-1">READY TO</p>
+                    <p class="slogan-line-2">TAKE OFF?</p>
                 </div>
 
                 <form action="" class="form-container">
-                    <input class="text-field" type="text" name="" id="" />
-                    <input class="text-field" type="text" name="" id="" />
+                    <div class="text-field">
+                        <label for="test">From</label>
+                        <input type="text" name="test" placeholder="Where?" />
+                    </div>
+
+                    <div class="text-field">
+                        <label for="test">To</label>
+                        <input type="text" name="test" placeholder="Where?" />
+                    </div>
+
                     <input type="submit" value="GO!" />
                 </form>
-            
             </div>
         </div>
+
         <div class="map-visualizer"></div>
     </body>
 </html>

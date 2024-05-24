@@ -27,8 +27,10 @@ function readData(src, dst) {
       .pipe(parse({ delimiter: ',', from_line: 1 }))
       .on('data', function (row) {
         // executed for each row of data
-        if(row[2] == src && row[3] == dst)
-            data.push(row);
+        
+        const iata  = row[4].split(" ? ");
+        if(iata[0] == src && iata[(iata.length) -1] == dst)
+            data.push(iata);
       })
       .on('error', function (error) {
         // Handle the errors

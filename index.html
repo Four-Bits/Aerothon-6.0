@@ -1,30 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel = "stylesheet" href = "style.css">
-    <script src = "main.js" defer></script>
-</head>
-<body>
-    <div class = "main-flex">
-        <div class = "navbar-flex">
-            <div class = "navbar-content">
-                <div>dummy1</div>
-                <div>dummy2</div>
-                <div>dummy3</div>
-                <div>dummy4</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fly Watch</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://kit.fontawesome.com/6a382ed7f3.js" crossorigin="anonymous"></script>
+        <script src="main.js" defer></script>
+    </head>
+
+    <body>
+        <div class="mobile-warning">
+            <h3>Cannot be viewed on mobile devices.</h3>
+            <h3>Please use a desktop or laptop.</h3>
+        </div>
+
+        <div class="main-flex">
+            <div class="navbar-flex">
+                <button class="logo-container">
+                    <h1>Fly Watch</h1>
+                </button>
+
+                <div class="navbar-content">
+                    <div>Documentation</div>
+                    <div>About Us</div>
+                    <div>Airbus</div>
+                    <div>Dummy</div>
+                </div>
+                <div class="menu">
+                    <input type="checkbox" class="menu-toggle" />
+                    <div class="menu-stick"></div>
+                    <div class="menu-stick"></div>
+                    <div class="menu-stick"></div>
+                </div>
             </div>
-            <div class = "menu">
-                <input type = "checkbox" class = "menu-toggle">
-                <div class = "menu-stick"></div>
-                <div class = "menu-stick"></div>
-                <div class = "menu-stick"></div>
+
+            <div class="main-container">
+                <div class="slogan-container">
+                    <p class="slogan-line-1">READY TO</p>
+                    <p class="slogan-line-2">TAKE OFF?</p>
+                </div>
+
+                <form action="" class="form-container">
+                    <div class="text-field">
+                        <label for="test">From</label>
+                        <input id="source" type="text" name="source" placeholder="Bangalore - BLR" />
+                    </div>
+                    <ul id="source-results" class="results"></ul>
+
+                    <div class="text-field">
+                        <label for="test">To</label>
+                        <input id="destination" type="text" name="destination" placeholder="Frankfurt - FRA" />
+                    </div>
+                    <ul id="destination-results" class="results"></ul>
+
+                    <button class="submit-button"><i class="fa-solid fa-plane fa-2xl"></i></button>
+                </form>
             </div>
         </div>
-    </div>
-    <div class = "visualizer">
-    </div>
-</body>
+
+        <div class="map-visualizer"></div>
+    </body>
 </html>

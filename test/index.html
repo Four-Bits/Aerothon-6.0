@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas with Image Background</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas" width="800" height="800"></canvas>
+
+  <script>
+    const mp = {
+    'BLR': { x: 316, y: 597 },
+    'DEL': { x: 309, y: 226 },
+    'CCU': { x: 550, y: 357 },
+    'GOI': { x: 400, y: 400 },
+    // Add coordinates for other airports here...
+    };
+    // Function to draw points and line
+    function drawLineWithPoints(x1, y1, x2, y2) {
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Draw point 1
+      ctx.beginPath();
+      ctx.arc(x1, y1, 5, 0, Math.PI * 2);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+      ctx.closePath();
+
+      // Draw point 2
+      ctx.beginPath();
+      ctx.arc(x2, y2, 5, 0, Math.PI * 2);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+      ctx.closePath();
+
+      // Draw line between points
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineWidth = 3; // Set the desired thickness
+      ctx.strokeStyle = 'blue';
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    // Get the canvas element
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Load the image
+    const img = new Image();
+    img.onload = function() {
+      // Draw the image onto the canvas
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Call the function to draw points and line
+      drawLineWithPoints(mp.CCU.x , mp.CCU.y, mp.BLR.x, mp.BLR.y);
+      drawLineWithPoints(mp.DEL.x , mp.DEL.y, mp.CCU.x, mp.CCU.y);
+    };
+    img.src = '../assets/map2.jpg'; // Set the path to your image
+
+        // Function to log coordinates of clicked point
+        function logCoordinates(event) {
+      const canvas = document.getElementById('myCanvas');
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      console.log(`Clicked coordinates: x=${x}, y=${y}`);
+    }
+
+    // Get the canvas element
+    // const canvas = document.getElementById('myCanvas');
+
+    // Add click event listener to the canvas
+    canvas.addEventListener('click', logCoordinates);
+  </script>
+  </script>
+</body>
+</html>

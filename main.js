@@ -88,14 +88,16 @@ form.addEventListener("submit", (e) =>{
     let src = document.querySelector("#source")
     let dst = document.querySelector("#destination")
     
-    url = "http://localhost:3000/req/" + src.value + "-" + dst.value;
+    let url = "http://localhost:3000/req/" + src.value + "-" + dst.value;
     console.log(url)
-    fetch(URL, {
-        mode: 'cors',
-        headers: {
-          'Access-Control-Allow-Origin':'*'
-        }
-      }).then((data)=>{
-        console.log(data.json)
-    })
+    fetch(url, 
+        {
+            mode: 'no-cors',
+            headers: {
+              'Access-Control-Allow-Origin':'*'
+            }
+          }
+      ).then(res => {
+        console.log(res)
+      })
 })

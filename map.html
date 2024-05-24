@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <style>
+        #map { 
+            height: 100vh;
+
+        }
+    </style>
+</head>
+<body>
+
+  
+    <div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+
+// fetch('data.txt')
+//         .then(response => response.text())
+//         .then(text => processText(text))
+//         .catch(error => console.error('Error fetching the file:', error));
+
+//         function processText(data) {
+//     const lines = data.split('\n');
+    
+//     lines.forEach((line, index) => {
+//         const myArray = line.split(":");
+//         if (myArray[14]!='0.000'){
+//             L.marker([parseFloat(myArray[14]), parseFloat(myArray[15])]).addTo(map);
+//             // console.log(`Line ${index + 1}: ${myArray[14]},${myArray[15]}`);
+//         }
+        
+       
+//     });
+// }
+
+
+var map = L.map('map').setView([-6.082, 145.392], 13);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 15,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+var redIcon = L.icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+    var via = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/Four-Bits/Aerothon-6.0/main/assets/DotMarker.png?token=GHSAT0AAAAAACSDVPVCSK2LNSPOO42GNY6WZSQ4CJQ',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+
+
+    
+    // Add a marker with custom icon
+
+
+const API_KEY = '3df6836ada8bae1010a0706d2b45f0af';
+
+function fetchWeatherData(latitude, longitude) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+
+    return fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error('Error fetching weather data:', error));
+}
+
+function canTakeOff(weatherData) {
+    const windSpeedThreshold = 20; // knots
+    const gustThreshold = 10; // knots above steady wind speed
+    const visibilityThreshold = 1500; // meters
+    const cloudCoverThreshold = 1000; // feet AGL
+    const temperatureThreshold = 35; // Celsius
+    const description =  weatherData.weather[0].description;
+
+    const windSpeed = weatherData.wind.speed * 1.94384; // Convert m/s to knots
+    const gust = weatherData.wind.gust * 1.94384; // Convert m/s to knots
+    const visibility = weatherData.visibility;
+    const cloudCover = weatherData.clouds.all;
+    const temperature = weatherData.main.temp - 273.15; // Convert Kelvin to Celsius
+    console.log(gust,windSpeed,gustThreshold)
+
+    return {
+        canTakeOff: windSpeed <= windSpeedThreshold &&
+                    visibility >= visibilityThreshold &&
+                    temperature < temperatureThreshold,
+        windSpeed,
+        gust,
+        visibility,
+        cloudCover,
+        temperature,
+        description
+    };
+}
+
+// Example usage
+// const latitude = 33.14; // Example latitude
+// const longitude = -94.04; // Example longitude
+
+
+
+
+
+
+
+
+
+
+
+
+fetch('data.json')
+    .then(response => response.json()) 
+    .then(data => {
+        
+        function fetchCoordinates(airportName) {
+            const coordinates = data[airportName];
+            if (coordinates) {
+                
+                return coordinates
+
+                
+            } else {
+                return null; 
+            }
+        }
+
+        const airportName = prompt("Enter the airport");
+        const destination = prompt("Enter the Dest")
+        // const mid = prompt("Enter the mid node")
+        const coordinates = fetchCoordinates(airportName);
+        const dcoordinates = fetchCoordinates(destination);
+        // const mcoordinates = fetchCoordinates(mid)
+        if (coordinates) {
+
+            var latlngs = [
+    [coordinates.latitude, coordinates.longitude],
+    [mcoordinates.latitude, mcoordinates.longitude],
+    [dcoordinates.latitude, dcoordinates.longitude]
+        ];
+
+        routes.forEach(route => {
+    route.forEach(airport => {
+        let coord = fetchCoordinates(airport)
+        latlngs.push([coord.latitude,coord.longitude])
+    });
+});
+
+
+
+        const latitude = latlngs[0][0]
+        const longitude = latlngs[0][1]
+
+    
+
+
+        fetchWeatherData(latitude, longitude)
+    .then(weatherData => {
+        const takeOffStatus = canTakeOff(weatherData);
+        console.log('Can take off:', takeOffStatus.canTakeOff);
+        console.log('Wind speed:', takeOffStatus.windSpeed);
+        console.log('Gust:', takeOffStatus.gust);
+        console.log('Visibility:', takeOffStatus.visibility);
+        console.log('Cloud cover:', takeOffStatus.cloudCover);
+        console.log('Temperature:', takeOffStatus.temperature);
+        console.log('description:', takeOffStatus.description);
+        // document.write(takeOffStatus.visibility)
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+        var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+
+        map.fitBounds(polyline.getBounds());
+            // console.log(`Coordinates for ${airportName}: Latitude=${coordinates.latitude}, Longitude=${coordinates.longitude}`);
+            L.marker([coordinates.latitude,coordinates.longitude ]).addTo(map);
+            for(i=1;i<routes.length-1;i++){
+                L.marker([latlngs[i][0], latlngs[i][1]], { icon: via }).addTo(map)
+            }
+            // L.marker([coordinates.latitude,coordinates.longitude ]).addTo(map);
+            L.marker([dcoordinates.latitude, dcoordinates.longitude], { icon: redIcon }).addTo(map)
+        .bindPopup(dcoordinates.airport_name)
+        .openPopup();
+   
+        } else {
+            console.log(`Coordinates not found for ${airportName}`);
+        }
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
+
+  
+
+
+
+</script>
+    
+</body>
+</html>

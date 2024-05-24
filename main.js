@@ -27,7 +27,8 @@ fetch("suggestions.json")
                     .filter((key) => key.toLowerCase().startsWith(searchTerm))
                     .sort((a, b) => a.localeCompare(b));
                 sourceResults.innerHTML = "";
-                const list = document.createElement("ul");
+                const list = document.createElement("div");
+                list.classList.add("result-flex")
                 matchingKeys.slice(0, 3).forEach((key) => {
                     const li = document.createElement("li");
                     li.textContent = key;
@@ -61,7 +62,7 @@ fetch("suggestions.json")
                     li.textContent = key;
                     li.addEventListener("click", () => {
                         destination.value = key;
-                        destinationResults.innerHTML = "";
+                        destinationResults.style.display = "none";
                     });
                     list.appendChild(li);
                 });

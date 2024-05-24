@@ -151,6 +151,14 @@
     border-radius: 5px;
 }
 
+a, a:visited {
+    all: unset;
+    display: inline;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
 @keyframes nav-in {
     0% {
         left: 100%;
@@ -287,20 +295,4 @@
     color: #fff;
     text-decoration: none;
     cursor: pointer;
-}
-
-#suggestions {
-    border: 1px solid #ccc;
-    max-width: 200px;
-    display: none;
-    position: absolute;
-    background-color: white;
-    z-index: 1;
-}
-.suggestion {
-    padding: 8px;
-    cursor: pointer;
-}
-.suggestion:hover {
-    background-color: #f0f0f0;
 }

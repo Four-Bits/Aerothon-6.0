@@ -20,31 +20,19 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 
-// fetch('data.txt')
-//         .then(response => response.text())
-//         .then(text => processText(text))
-//         .catch(error => console.error('Error fetching the file:', error));
 
-//         function processText(data) {
-//     const lines = data.split('\n');
-    
-//     lines.forEach((line, index) => {
-//         const myArray = line.split(":");
-//         if (myArray[14]!='0.000'){
-//             L.marker([parseFloat(myArray[14]), parseFloat(myArray[15])]).addTo(map);
-//             // console.log(`Line ${index + 1}: ${myArray[14]},${myArray[15]}`);
-//         }
-        
-       
-//     });
-// }
-
+//leaf let js map set
 
 var map = L.map('map').setView([-6.082, 145.392], 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 15,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+
+
+
+// Add a marker with custom icon
 
 var redIcon = L.icon({
       iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -67,8 +55,8 @@ var redIcon = L.icon({
 
 
     
-    // Add a marker with custom icon
-
+    
+// open-weather api 
 
 const API_KEY = '3df6836ada8bae1010a0706d2b45f0af';
 
@@ -80,6 +68,10 @@ function fetchWeatherData(latitude, longitude) {
         .then(data => data)
         .catch(error => console.error('Error fetching weather data:', error));
 }
+
+
+
+// Check if take off is true/false
 
 function canTakeOff(weatherData) {
     const windSpeedThreshold = 20; // knots
@@ -109,22 +101,15 @@ function canTakeOff(weatherData) {
     };
 }
 
-// Example usage
-// const latitude = 33.14; // Example latitude
-// const longitude = -94.04; // Example longitude
 
 
 
 
 
+//Main
+// Start of json reading and api req
 
-
-
-
-
-
-
-fetch('data.json')
+fetch('suggestions.json')
     .then(response => response.json()) 
     .then(data => {
         
@@ -143,20 +128,16 @@ fetch('data.json')
         const airportName = prompt("Enter the airport");
         const destination = prompt("Enter the Dest")
         // const mid = prompt("Enter the mid node")
-        const coordinates = fetchCoordinates(airportName);
-        const dcoordinates = fetchCoordinates(destination);
+        // const coordinates = fetchCoordinates(airportName);
+        // const dcoordinates = fetchCoordinates(destination);
         // const mcoordinates = fetchCoordinates(mid)
-        if (coordinates) {
+        // if (coordinates) {
 
-            var latlngs = [
-    [coordinates.latitude, coordinates.longitude],
-    [mcoordinates.latitude, mcoordinates.longitude],
-    [dcoordinates.latitude, dcoordinates.longitude]
-        ];
+            var latlngs = []
 
         routes.forEach(route => {
     route.forEach(airport => {
-        let coord = fetchCoordinates(airport)
+        let coord = data.airport
         latlngs.push([coord.latitude,coord.longitude])
     });
 });
@@ -207,9 +188,7 @@ fetch('data.json')
         .bindPopup(dcoordinates.airport_name)
         .openPopup();
    
-        } else {
-            console.log(`Coordinates not found for ${airportName}`);
-        }
+       
     })
     .catch(error => console.error('Error fetching data:', error));
 

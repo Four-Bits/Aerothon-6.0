@@ -2,7 +2,11 @@ var express = require("express");
 var app = express();
 const { parse } = require('csv-parse');
 const fs = require('fs');
-const port = 3000;
+const PORT = process.env.PORT || 3000;
+const cors = require('cors');  // Import the cors package
+
+
+app.use(cors());  // Enable CORS for all routes
 
 const path = './dataIndia.csv';
 //path
@@ -44,14 +48,17 @@ function readData(src, dst) {
 }
 
 // Route to handle GET request and return CSV data as JSON
+
+
 app.get('/req/:query', async function (req, res) {
   try {
     from = req.params.query.split('-')[0];
     to = req.params.query.split('-')[1];
-    const data = await readData(from, to);
-    res.json(data.slice(0, 10));
+    let data = await readData(from, to);
+    data = data.slice(1, 10);
+    res.json(data);
   } catch (error) {
     res.status(500).send('Error reading CSV file');
   }
 });
-app.listen(port);
+app.listen(PORT);

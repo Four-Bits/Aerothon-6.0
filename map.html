@@ -121,7 +121,7 @@ function canTakeOff(weatherData) {
     const gustThreshold = 10; // knots above steady wind speed
     const visibilityThreshold = 1500; // meters
     const cloudCoverThreshold = 1000; // feet AGL
-    const temperatureThreshold = 37; // Celsius
+    const temperatureThreshold = 40; // Celsius
     const description =  weatherData.weather[0].description;
 
     const windSpeed = weatherData.wind.speed * 1.94384; // Convert m/s to knots

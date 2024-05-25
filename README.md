@@ -26,4 +26,6 @@
 
 ### Built in association with Airbus Aerothon 6.0.
 
-📌 [Leaflet.js](https://leafletjs.com/) for Map Visualization.
+📌 [Leaflet.js](https://leafletjs.com/) for map visualization.
+
+⛈️ [OpenWeatherMap](https://openweathermap.org/current) for realtime weather.

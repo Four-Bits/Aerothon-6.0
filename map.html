@@ -125,24 +125,72 @@ fetch('suggestions.json')
             }
         }
 
-        const airportName = prompt("Enter the airport");
-        const destination = prompt("Enter the Dest")
-        // const mid = prompt("Enter the mid node")
-        // const coordinates = fetchCoordinates(airportName);
-        // const dcoordinates = fetchCoordinates(destination);
-        // const mcoordinates = fetchCoordinates(mid)
-        // if (coordinates) {
+
+        const url = window.location.href;
+    
+    // Log the full URL to the console
+    // console.log(`Full URL: ${url}`);
+    
+    // Split the URL by '?'
+    const splitUrl = url.split('?');
+    
+    // Log the split parts to the console
+    // console.log('URL Split by ?:', splitUrl);
+    const sdd = splitUrl[1].split('&')
+    const source_des = sdd[0].split('-')
+    const datas = sdd[1].split('=')
+    const routee = datas[1].split(',')
+
+   
+
+
+    
+        const airportName = source_des[0]
+        const destination = source_des[1]
+
+
+        function findRoutes(segments, source, destination) {
+    const routes = [];
+    let route = [];
+    let capturing = false;
+
+    for (let i = 0; i < segments.length; i++) {
+        if (segments[i] === source && !capturing) {
+            capturing = true;
+            route = [source];
+        } else if (capturing) {
+            route.push(segments[i]);
+            if (segments[i] === destination) {
+                routes.push(route);
+                capturing = false;
+            }
+        }
+    }
+
+    return routes;
+}
+
+const routes = findRoutes(routee, airportName, destination);
+
+
+
+
+
+
+
 
             var latlngs = []
 
         routes.forEach(route => {
     route.forEach(airport => {
-        let coord = data.airport
+        let coord = data[airport]
         latlngs.push([coord.latitude,coord.longitude])
     });
 });
 
 
+
+console.log(latlngs)
 
         const latitude = latlngs[0][0]
         const longitude = latlngs[0][1]

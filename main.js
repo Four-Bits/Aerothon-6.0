@@ -90,14 +90,15 @@ form.addEventListener("submit", (e) =>{
     
     async function fetchData() {
         try {
-          const query = src.value + "-" + dst.value;  // Replace with actual source and destination codes
+          const query = src.value + "-" + dst.value;  
           const url = "http://localhost:3000/req/"
           const response = await fetch(`${url}${query}`);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
           const data = await response.json();
-          console.log(data);  // Log the received data to the console
+          console.log(data); 
+          window.location.href = "map.html?"+query+"&data="+data
         } catch (error) {
           console.error('There has been a problem with your fetch operation:', error);
         }

@@ -13,4 +13,15 @@
 
 😶‍🌫️ Shows if a flight can take off or not based on weather conditions.
 
+⚠️ Dataset disclaimer: Unfortunately, the dataset we are using is limited.
+
+> Please try the following inputs:
+> > BLR -> DEL
+> > 
+> > CCU -> BLR
+> >
+> > MAA -> CCU
+> >
+> > DEL -> COK
+
 ### Built in association with Airbus Aerothon 6.0.

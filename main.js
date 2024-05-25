@@ -108,7 +108,7 @@ form.addEventListener("submit", (e) =>{
     async function fetchData() {
         try {
           const query = src.value + "-" + dst.value;  
-          const url = "http://localhost:3000/req/"
+          const url = "https://aerothon-60-backend-production.up.railway.app/req/"
           const response = await fetch(`${url}${query}`);
           if (!response.ok) {
             throw new Error('Network response was not ok');

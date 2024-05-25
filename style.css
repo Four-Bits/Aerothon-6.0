@@ -297,8 +297,36 @@ a, a:visited {
     cursor: pointer;
 }
 
-
-/* --------------suggestion----------------- */
+@keyframes planeAnimation {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(30px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .animated {
+    animation: planeAnimation 1s linear;
+  }
+  @keyframes emitSmoke {
+    0% { opacity: 1; transform: translate(-50%, -50%) rotate(0); }
+    100% { opacity: 0; transform: translate(-150%, -50%) rotate(360deg); }
+  }
+  
+  
+  .smoke {
+    position: absolute;
+    top: 50%;
+    left: 30%; /* Adjust this value to position the smoke as needed */
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: #888;
+    border-radius: 50%;
+    opacity: 0;
+    animation: emitSmoke 1s linear;
+    animation-fill-mode: forwards;
+  }
+  
+/* -------------suggestion----------------- */
 .result-flex{
     display: flex;
     flex-direction: column;

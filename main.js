@@ -12,6 +12,23 @@ menuToggle.addEventListener("click", (e) => {
     }
 });
 
+function animatePlane() {
+    const button = document.querySelector('.submit-button');
+    const planeIcon = button.querySelector('.fa-plane');
+    planeIcon.classList.add('animated');
+  
+    const smoke = document.createElement('i');
+    smoke.classList.add('smoke');
+    button.insertBefore(smoke, planeIcon.nextSibling);
+  
+    setTimeout(() => {
+      smoke.remove();
+      planeIcon.classList.remove('animated');
+    }, 1000); // Adjust the duration as needed
+  }
+  
+  
+
 const source = document.getElementById("source");
 const sourceResults = document.getElementById("source-results");
 const destination = document.getElementById("destination");

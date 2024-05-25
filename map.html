@@ -230,7 +230,9 @@ console.log(latlngs)
 
         map.fitBounds(polyline.getBounds());
             // console.log(`Coordinates for ${airportName}: Latitude=${coordinates.latitude}, Longitude=${coordinates.longitude}`);
-            L.marker([coordinates.latitude,coordinates.longitude ]).addTo(map);
+            L.marker([coordinates.latitude,coordinates.longitude ]).addTo(map)
+            .bindPopup(coordinates.airport_name)
+            .openPopup();
             // for(i=1;i<routes.length-1;i++){
             //     L.marker([latlngs[i][0], latlngs[i][1]], { icon: via }).addTo(map)
             // }

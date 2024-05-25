@@ -6,15 +6,58 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+        :root {
+            --primary-light: rgb(245, 245, 245);
+            --primary-light-glass: rgba(245, 245, 245, 0.4);
+            --primary-dark: rgb(18, 19, 20);
+            --primary-dark-glass: rgb(18, 19, 20, 0.4);
+
+            --secondary-light: rgb(230, 230, 230);
+            --secondary-light-glas: rgb(230, 230, 230, 0.4);
+            --secondary-dark: rgb(28, 29, 30);
+            --secondary-dark-glass: rgb(28, 29, 30, 0.4);
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+
+            font-family: "Inter", sans-serif;
+        }
         #map { 
             height: 100vh;
+            z-index: 1;
+        }
+        .info-flex{
+            z-index: 2;
+            /* background-color: transparent; */
+            color: black;
+            position: absolute;
+            right: 1.5em;
+            top : 1.5em;
 
+            background-color: var(--primary-light-glass);
+            color : var(--primary-dark);
+            backdrop-filter: blur(5px);
+
+            padding : 1em;
+            border: black solid 2px;
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;
+            gap : 1em;
+            
+            color : black;
         }
     </style>
 </head>
 <body>
 
-  
+    <div class = "info-flex">
+    </div>
     <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -211,6 +254,30 @@ console.log(latlngs)
         console.log('Cloud cover:', takeOffStatus.cloudCover);
         console.log('Temperature:', takeOffStatus.temperature);
         console.log('description:', takeOffStatus.description);
+
+        let infoFlex = document.querySelector(".info-flex");
+        let li = document.createElement('div');
+        li.textContent = 'Can take off : ' + takeOffStatus.canTakeOff;
+        infoFlex.appendChild(li)
+        let l2 = document.createElement('div');
+        l2.textContent = 'Wind speed : ' + takeOffStatus.windSpeed
+        infoFlex.appendChild(l2)
+        let l3 = document.createElement('div');
+        l3.textContent = 'Gust : '+ takeOffStatus.gust
+        infoFlex.appendChild(l3)
+        let l4 = document.createElement('div');
+        l4.textContent = 'Visibility : '+ takeOffStatus.visibility;
+        infoFlex.appendChild(l4)
+        let l5 = document.createElement('div');
+        l5.textContent = 'Cloud cover : ' +  takeOffStatus.cloudCover
+        infoFlex.appendChild(l5)
+        let l6 = document.createElement('div');
+        l6.textContent = 'Temperature : '+ takeOffStatus.temperature;
+        infoFlex.appendChild(l6)
+        let l7 = document.createElement('div');
+        l7.textContent = 'description : '+ takeOffStatus.description;
+        infoFlex.appendChild(l7)
+
         // document.write(takeOffStatus.visibility)
     });
 

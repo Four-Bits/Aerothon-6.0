@@ -121,7 +121,7 @@ function canTakeOff(weatherData) {
     const gustThreshold = 10; // knots above steady wind speed
     const visibilityThreshold = 1500; // meters
     const cloudCoverThreshold = 1000; // feet AGL
-    const temperatureThreshold = 35; // Celsius
+    const temperatureThreshold = 37; // Celsius
     const description =  weatherData.weather[0].description;
 
     const windSpeed = weatherData.wind.speed * 1.94384; // Convert m/s to knots
@@ -129,13 +129,14 @@ function canTakeOff(weatherData) {
     const visibility = weatherData.visibility;
     const cloudCover = weatherData.clouds.all;
     const temperature = weatherData.main.temp - 273.15; // Convert Kelvin to Celsius
-    console.log(gust,windSpeed,gustThreshold)
+    // console.log(gust,windSpeed,gustThreshold)
+    const windss = windSpeed.toFixed(2)
 
     return {
         canTakeOff: windSpeed <= windSpeedThreshold &&
                     visibility >= visibilityThreshold &&
                     temperature < temperatureThreshold,
-        windSpeed,
+        windss,
         gust,
         visibility,
         cloudCover,
@@ -248,7 +249,7 @@ console.log(latlngs)
     .then(weatherData => {
         const takeOffStatus = canTakeOff(weatherData);
         console.log('Can take off:', takeOffStatus.canTakeOff);
-        console.log('Wind speed:', takeOffStatus.windSpeed);
+        console.log('Wind speed:', takeOffStatus.windss);
         console.log('Gust:', takeOffStatus.gust);
         console.log('Visibility:', takeOffStatus.visibility);
         console.log('Cloud cover:', takeOffStatus.cloudCover);
@@ -260,11 +261,11 @@ console.log(latlngs)
         li.textContent = 'Can take off : ' + takeOffStatus.canTakeOff;
         infoFlex.appendChild(li)
         let l2 = document.createElement('div');
-        l2.textContent = 'Wind speed : ' + takeOffStatus.windSpeed
+        l2.textContent = 'Wind speed : ' + takeOffStatus.windss
         infoFlex.appendChild(l2)
-        let l3 = document.createElement('div');
-        l3.textContent = 'Gust : '+ takeOffStatus.gust
-        infoFlex.appendChild(l3)
+        // let l3 = document.createElement('div');
+        // l3.textContent = 'Gust : '+ takeOffStatus.gust
+        // infoFlex.appendChild(l3)
         let l4 = document.createElement('div');
         l4.textContent = 'Visibility : '+ takeOffStatus.visibility;
         infoFlex.appendChild(l4)
